@@ -57,7 +57,7 @@ public class EventsSavingActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                selectedDate = day + "/" + month + "/" + year;
+                selectedDate = day + "/" + (month+1) + "/" + year;
                 Toast.makeText(EventsSavingActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
             }
         });

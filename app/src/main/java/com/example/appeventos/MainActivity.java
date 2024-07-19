@@ -48,20 +48,20 @@ public class MainActivity extends AppCompatActivity {
                 String username = tilUser.getEditText().getText().toString();
                 String password = tilPass.getEditText().getText().toString();
 
+                Intent intent = new Intent(MainActivity.this, EventsSavingActivity.class);
+                MainActivity.this.startActivity(intent);
+
             }
 
         });
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
-//            public void onClick(View v) {
-//                Intent intentReg = new Intent(MainActivity.this, Registro.class);
-//                MainActivity.this.startActivity(intentReg);
-//            }
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EventsSavingActivity.class);
-                MainActivity.this.startActivity(intent);
+                Intent intentReg = new Intent(MainActivity.this, Registro.class);
+                MainActivity.this.startActivity(intentReg);
             }
+
         });
 
     }
