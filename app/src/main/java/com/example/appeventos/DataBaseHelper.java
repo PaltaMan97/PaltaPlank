@@ -151,6 +151,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("titulo", titulo);
         contentValues.put("fecha", fecha);
+//        contentValues.put("usuario_id", getUserId());
         long result  = db.insert("eventos", null, contentValues);
         db.close();
         return result != -1;

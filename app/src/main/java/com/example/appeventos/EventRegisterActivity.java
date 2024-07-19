@@ -60,10 +60,9 @@ public class EventRegisterActivity extends AppCompatActivity {
                 if (!titleInput.getText().toString().isEmpty()) {
                     Toast.makeText(EventRegisterActivity.this, titleInput.getText(), Toast.LENGTH_SHORT).show();
 
-                    db.createEvent(titleInput.getText().toString(), selectedDate.toString());
+                    db.createEvent(titleInput.getText().toString(), selectedDate.getText().toString());
 
                 }
-
             }
         });
 
