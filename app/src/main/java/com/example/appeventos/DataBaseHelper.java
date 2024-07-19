@@ -89,48 +89,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return database.insert(TABLE_USUARIOS, null, values);
     }
 
-    public Usuario getUser(int id) {
-        Cursor cursor = database.query(TABLE_USUARIOS, new String[] { COLUMN_ID, COLUMN_NOMBRE_USUARIO, COLUMN_CONTRASENA, COLUMN_RESPUESTA_SECRETA }, COLUMN_ID + " = ?", new String[] { String.valueOf(id) }, null, null, null);
-        if (cursor.moveToFirst()) {
-            Usuario usuario = new Usuario();
-            usuario.setId(cursor.getInt(0));
-            usuario.setNombreUsuario(cursor.getString(1));
-            usuario.setContrasena(cursor.getString(2));
-            usuario.setRespuestaSecreta(cursor.getString(3));
-            return usuario;
+    public int getUserId(String nombre_usuario) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_USUARIOS + " WHERE " + COLUMN_NOMBRE_USUARIO + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{nombre_usuario});
+        if (cursor != null && cursor.moveToFirst()) {
+            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+            cursor.close();
+            db.close();
+            return userId;
+        } else {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+            return -1; // Usuario no encontrado
         }
-        return null;
     }
 
-
-
-    public void deleteUser(int id) {
-        database.delete("Usuarios", "id = ?", new String[] { String.valueOf(id) });
-    }
-
-//    public int getUserId(String nombre_usuario) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String query = "SELECT usuario_id FROM Usuarios WHERE nombre_usuario = ?";
-//        Cursor cursor = db.rawQuery(query, new String[]{nombre_usuario});
-//        if (cursor.moveToFirst()) {
-//            int usuario_id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-//            cursor.close();
-//            db.close();
-//            return usuario_id;
-//        } else {
-//            cursor.close();
-//            db.close();
-//            return -1; // Usuario no encontrado
-//        }
-//    }
-//
-//    public boolean deleteUserAndEvents(int usuario_id) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        int deletedRowsUser = db.delete(TABLE_USUARIOS, COLUMN_ID + " = ?", new String[]{String.valueOf(usuario_id)});
+    public boolean deleteUserAndEvents(int usuario_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRowsUser = db.delete(TABLE_USUARIOS, COLUMN_ID + " = ?", new String[]{String.valueOf(usuario_id)});
 //        int deletedRowsEvents = db.delete(TABLE_EVENTOS, COLUMN_USUARIO_ID + " = ?", new String[]{String.valueOf(usuario_id)});
 //        db.close();
-//        return deletedRowsUser > 0;
-//    }
+        return deletedRowsUser > 0;
+    }
 
 
     public boolean checkUserCredentials(String nombre_usuario, String contrasena) {
