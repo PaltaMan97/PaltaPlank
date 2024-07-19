@@ -45,11 +45,15 @@ public class MainActivity extends AppCompatActivity {
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = tilUser.getEditText().getText().toString();
-                String password = tilPass.getEditText().getText().toString();
+                String nombre_usuario = tilUser.getEditText().getText().toString();
+                String contrasena = tilPass.getEditText().getText().toString();
 
-                Intent intent = new Intent(MainActivity.this, EventsSavingActivity.class);
-                MainActivity.this.startActivity(intent);
+                if (DBHelper.checkUserCredentials(nombre_usuario, contrasena)) {
+                    Intent intent = new Intent(MainActivity.this, EventsAdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    tilPass.setError("Nombre de usuario o contraseña incorrectos");
+                }
 
             }
 
@@ -62,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(intentReg);
             }
 
+        });
+
+        tvRecuperacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ForgotPassword.class);
+                startActivity(intent);
+            }
         });
 
     }

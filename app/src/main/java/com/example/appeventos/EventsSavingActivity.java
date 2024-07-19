@@ -26,9 +26,10 @@ public class EventsSavingActivity extends AppCompatActivity {
 
     CalendarView calendarView;
     Calendar calendar;
-    Button addDateBtn;
+    Button addDateBtn, deleteAllBtn;
     String selectedDate;
-    MaterialToolbar toolbar;
+
+//    MaterialToolbar toolbar;
 
 //    List<EventModel> events;
 
@@ -47,10 +48,10 @@ public class EventsSavingActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         addDateBtn = findViewById(R.id.add_date_btn);
         selectedDate = "";
-        toolbar = findViewById(R.id.materialToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Seleccion de Fecha");
+//        toolbar = findViewById(R.id.materialToolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("Seleccion de Fecha");
 
 //        events = new ArrayList<>();
 
@@ -75,6 +76,7 @@ public class EventsSavingActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override

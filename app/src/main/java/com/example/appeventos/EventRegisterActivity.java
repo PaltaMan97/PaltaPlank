@@ -23,7 +23,7 @@ import java.util.Objects;
 public class EventRegisterActivity extends AppCompatActivity {
 
     TextView selectedDate;
-    MaterialToolbar toolbar;
+//    MaterialToolbar toolbar;
     Button saveEventBtn;
     TextInputEditText titleInput;
 
@@ -40,10 +40,10 @@ public class EventRegisterActivity extends AppCompatActivity {
 
         titleInput = findViewById(R.id.txt_title_input);
         selectedDate = findViewById(R.id.txt_selected_date);
-        toolbar = findViewById(R.id.materialToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Registro de evento");
+//        toolbar = findViewById(R.id.materialToolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("Registro de evento");
 
 
         Bundle extras = getIntent().getExtras();

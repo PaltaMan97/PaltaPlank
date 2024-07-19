@@ -102,17 +102,68 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public void updateUser(Usuario usuario) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NOMBRE_USUARIO, usuario.getNombreUsuario());
-        values.put(COLUMN_CONTRASENA, usuario.getContrasena());
-        values.put(COLUMN_RESPUESTA_SECRETA, usuario.getRespuestaSecreta());
-        database.update(TABLE_USUARIOS, values, COLUMN_ID + " = ?", new String[] { String.valueOf(usuario.getId()) });
-    }
+
 
     public void deleteUser(int id) {
         database.delete("Usuarios", "id = ?", new String[] { String.valueOf(id) });
     }
+
+//    public int getUserId(String nombre_usuario) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String query = "SELECT usuario_id FROM Usuarios WHERE nombre_usuario = ?";
+//        Cursor cursor = db.rawQuery(query, new String[]{nombre_usuario});
+//        if (cursor.moveToFirst()) {
+//            int usuario_id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+//            cursor.close();
+//            db.close();
+//            return usuario_id;
+//        } else {
+//            cursor.close();
+//            db.close();
+//            return -1; // Usuario no encontrado
+//        }
+//    }
+//
+//    public boolean deleteUserAndEvents(int usuario_id) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        int deletedRowsUser = db.delete(TABLE_USUARIOS, COLUMN_ID + " = ?", new String[]{String.valueOf(usuario_id)});
+//        int deletedRowsEvents = db.delete(TABLE_EVENTOS, COLUMN_USUARIO_ID + " = ?", new String[]{String.valueOf(usuario_id)});
+//        db.close();
+//        return deletedRowsUser > 0;
+//    }
+
+
+    public boolean checkUserCredentials(String nombre_usuario, String contrasena) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM Usuarios WHERE nombre_usuario = ? AND contrasena = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{nombre_usuario, contrasena});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+
+    public boolean checkSecurityAnswer(String nombre_usuario, String respuesta_secreta) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM Usuarios WHERE nombre_usuario = ? AND respuesta_secreta = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{nombre_usuario, respuesta_secreta});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+    public boolean updatePassword(String nombre_usuario, String nuevaContrasena) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("contrasena", nuevaContrasena);
+        int result = db.update("Usuarios", contentValues, "nombre_usuario = ?", new String[]{nombre_usuario});
+        db.close();
+        return result > 0;
+    }
+
+
 
 }
 
