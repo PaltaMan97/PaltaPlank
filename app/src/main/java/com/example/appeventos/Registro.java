@@ -36,13 +36,13 @@ public class Registro extends AppCompatActivity {
         btnRegistrado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newUsername = etNewUsername.getText().toString();
-                String newPassword = etNewPassword.getText().toString();
-                if (registerUser(newUsername, newPassword)) {
-                    finish();
-                } else {
-                    tilNewPassword.setError(getString(R.string.error_registering_user));
-                }
+//                String newUsername = etNewUsername.getText().toString();
+//                String newPassword = etNewPassword.getText().toString();
+//                if (registerUser(newUsername, newPassword)) {
+//                    finish();
+//                } else {
+//                    tilNewPassword.setError(getString(R.string.error_registering_user));
+//                }
             }
         });
 
