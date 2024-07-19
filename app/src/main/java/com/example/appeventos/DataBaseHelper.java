@@ -47,10 +47,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_TITULO + " TEXT NOT NULL, " +
                     COLUMN_FECHA + " TEXT NOT NULL, " +
-                    COLUMN_IMPORTANCIA + " TEXT NOT NULL, " +
-                    COLUMN_OBSERVACION + " TEXT, " +
-                    COLUMN_LUGAR + " TEXT, " +
-                    COLUMN_TIEMPO_AVISO + " INTEGER NOT NULL, " +
+//                    COLUMN_IMPORTANCIA + " TEXT NOT NULL, " +
+//                    COLUMN_OBSERVACION + " TEXT, " +
+//                    COLUMN_LUGAR + " TEXT, " +
+//                    COLUMN_TIEMPO_AVISO + " INTEGER NOT NULL, " +
                     COLUMN_USUARIO_ID + " INTEGER NOT NULL, " +
                     "FOREIGN KEY (" + COLUMN_USUARIO_ID + ") REFERENCES " + TABLE_USUARIOS + "(" + COLUMN_ID + ") ON DELETE CASCADE)";
 
@@ -144,6 +144,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         int result = db.update("Usuarios", contentValues, "nombre_usuario = ?", new String[]{nombre_usuario});
         db.close();
         return result > 0;
+    }
+
+    public boolean createEvent(String titulo, String fecha) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("titulo", titulo);
+        contentValues.put("fecha", fecha);
+        long result  = db.insert("eventos", null, contentValues);
+        db.close();
+        return result != -1;
     }
 
 

@@ -26,6 +26,7 @@ public class EventRegisterActivity extends AppCompatActivity {
 //    MaterialToolbar toolbar;
     Button saveEventBtn;
     TextInputEditText titleInput;
+    DataBaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,8 @@ public class EventRegisterActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setTitle("Registro de evento");
-
+        db = new DataBaseHelper(this);
+        db.getWritableDatabase();
 
         Bundle extras = getIntent().getExtras();
         selectedDate.setText(Objects.requireNonNull(extras).getString("selectedDate"));
@@ -55,15 +57,15 @@ public class EventRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(EventRegisterActivity.this, titleInput.getText(), Toast.LENGTH_SHORT).show();
+                if (!titleInput.getText().toString().isEmpty()) {
+                    Toast.makeText(EventRegisterActivity.this, titleInput.getText(), Toast.LENGTH_SHORT).show();
 
-                EventModel eventToSave = new EventModel();
+                    db.createEvent(titleInput.getText().toString(), selectedDate.toString());
 
-                eventToSave.setTitle(titleInput.getText().toString());
+                }
 
             }
         });
-
 
     }
 
