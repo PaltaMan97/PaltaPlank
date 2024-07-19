@@ -89,7 +89,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return database.insert(TABLE_USUARIOS, null, values);
     }
 
-
     public int getUserId(String nombre_usuario) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_USUARIOS + " WHERE " + COLUMN_NOMBRE_USUARIO + " = ?";
