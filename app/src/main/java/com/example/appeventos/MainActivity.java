@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (DBHelper.checkUserCredentials(nombre_usuario, contrasena)) {
                     Intent intent = new Intent(MainActivity.this, EventsAdminActivity.class);
+                    intent.putExtra("username", nombre_usuario); // Pasar el nombre de usuario
                     startActivity(intent);
                 } else {
                     tilPass.setError("Nombre de usuario o contraseña incorrectos");
