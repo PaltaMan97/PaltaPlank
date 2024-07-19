@@ -18,11 +18,15 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout tilUser, tilPass;
     private Button btnIngresar, btnRegistrar;
     private TextView tvRecuperacion;
+    private DataBaseHelper DBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DBHelper= new DataBaseHelper(this);
+        DBHelper.getReadableDatabase();
 
         referencias();
         eventos();
@@ -44,21 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 String username = tilUser.getEditText().getText().toString();
                 String password = tilPass.getEditText().getText().toString();
 
-                ValidarChar usernameCharacter = new ValidarChar(username);
-                ValidarChar passwordCharacter = new ValidarChar(password);
-
-                if (!usernameCharacter.hasUppercase() || !usernameCharacter.hasLowercase() || !usernameCharacter.hasDigit()) {
-                    tilUser.setError("El nombre de usuario debe contener al menos una letra mayúscula, una letra minúscula y un número..");
-                } else {
-                    tilUser.setErrorEnabled(false); // No mostrar error si el usuario es válido
-                }
-
-                if (!passwordCharacter.hasUppercase() || !passwordCharacter.hasLowercase() || !passwordCharacter.hasDigit()) {
-                    tilPass.setError("La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.");
-                } else {
-                    tilPass.setErrorEnabled(false); // No mostrar error si la contraseña es válida
-                }
             }
+
         });
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
